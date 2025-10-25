@@ -28,7 +28,7 @@ export default function Navbar() {
     };
 
     return (
-        <div className='w-full sticky top-0 left-0 flex items-center justify-end gap-4 lg:p-6'>
+        <div className='w-full fixed top-0 left-0 bg-black flex items-center justify-end gap-4 p-4 lg:p-6'>
             <Link href={'/'} className="mr-auto">
                 <Image src={'/icons/complete-logo.svg'} width={133} height={24} alt='Logo' className="hidden sm:block" />
                 <Image src={'/icons/small-logo.svg'} width={26} height={27} alt='Small Logo' className="sm:hidden" />

@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default function LoginButton({ code, error }: Props) {
-    const params = `response_type=code&client_id=${NEXT_PUBLIC_CLIENT_ID}&scope=user-read-private user-read-email&redirect_uri=${encodeURI(NEXT_PUBLIC_REDIRECT_URI)}`;
+    const params = `response_type=code&client_id=${NEXT_PUBLIC_CLIENT_ID}&scope=user-read-private user-read-email user-library-modify user-library-read&redirect_uri=${encodeURI(NEXT_PUBLIC_REDIRECT_URI)}`;
     const dispatch = useAppDispatch();
 
     const [

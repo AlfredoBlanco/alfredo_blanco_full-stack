@@ -12,6 +12,7 @@
   --font-mono: var(--font-geist-mono);
   --breakpoint-sm: 550px;
   --color-main-green: #D6F379;
+  --color-main-red: #E3513D;
 }
 
 @media (prefers-color-scheme: dark) {

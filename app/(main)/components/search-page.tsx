@@ -1,13 +1,12 @@
 'use client'
 
 import { useAppSelector } from "@/lib/hooks"
-import AlbumsDisplay from "./artists-display"
 import SearchForm from "./search-form"
 import { selectUser } from "@/lib/features/user.slice"
-import { useGetArtistsQuery } from "@/lib/services/artist-service"
 import { useEffect, useState } from "react"
 import ArtistsDisplay from "./artists-display"
 import Pagination from "./pagination"
+import { useSearchArtistsQuery } from "@/lib/services/search-service"
 
 
 export default function SearchPage() {
@@ -15,7 +14,7 @@ export default function SearchPage() {
     const [query, setQuery] = useState<string>('');
     const { data: user } = useAppSelector(selectUser);
 
-    const { data, isLoading, isError, error, isFetching } = useGetArtistsQuery({
+    const { data, isLoading, isError, error, isFetching } = useSearchArtistsQuery({
         token: user?.access_token,
         query,
         page: page - 1,
