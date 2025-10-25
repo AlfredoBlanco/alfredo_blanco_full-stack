@@ -1,7 +1,7 @@
 'use client'
 import Link from "next/link";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { generateRandomString } from "@/app/utils/generate-random";
 import { useEffect } from "react";
 import axios from "axios";
@@ -43,6 +43,7 @@ export default function LoginButton({ code, error }: Props) {
                 expires_in: Date.now() + (data.expires_in * 1000)
             }));
             localStorage.setItem('user', JSON.stringify(data));
+            redirect('/');
         }
         if (isError) {
             console.log('Hubo un error')
