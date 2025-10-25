@@ -20,23 +20,19 @@ export default function AlbumsDisplay({ artistId }: Props) {
         page: page - 1,
     }, {
         skip: !user,
+        refetchOnMountOrArgChange: true,
     });
 
     const handleChange = (targetPage: number) => {
         setPage(targetPage);
     }
 
-    useEffect(() => {
-        console.log(data);
-    }, [data])
-
-
     return (
         <div className="flex flex-col gap-5">
 
             <AlbumsCollection data={data?.items} loading={isLoading || isFetching} user={user} />
 
-            <Pagination page={page} totalResults={data?.total?? 0} onChange={handleChange} />
+            <Pagination page={page} totalResults={data?.total?? 0} itemsPerPage={8} onChange={handleChange} />
 
         </div>
     )

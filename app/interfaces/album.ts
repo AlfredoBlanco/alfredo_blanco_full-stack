@@ -26,3 +26,10 @@ export interface AlbumsResponse {
     previus: number | null;
     total: number;
 }
+
+export interface SavedAlbumsResponse extends Omit<AlbumsResponse, 'items'> {
+    items: {
+        added_at: string;
+        album: Album
+    }[];
+}
