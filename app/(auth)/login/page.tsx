@@ -1,7 +1,7 @@
 import Image from "next/image";
 import LoginButton from "./components/login-button";
 
-export default async function Page({ searchParams }: { searchParams: { code?: string, error?: string } }) {
+export default async function Page({ searchParams }: { searchParams: Promise<{ code?: string, error?: string }> }) {
     const { code, error } = await searchParams;
 
     return (
