@@ -22,10 +22,6 @@ export default function ArtistData({ artistId }: Props) {
         skip: !user,
     });
 
-    useEffect(() => {
-        console.log(data);
-    }, [data])
-
     if (isSuccess && data) {
         return (
             <>

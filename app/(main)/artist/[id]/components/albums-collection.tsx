@@ -21,9 +21,12 @@ export default function AlbumsCollection({ data, loading, user }: Props) {
           ) : (
             <>
               {
-                data?.map((e: AlbumType) => (
-                  <Album album={e} key={e.id} user={user} />
-                ))
+                data?.map((e: AlbumType) => {
+                  return (
+                    <Album album={e} key={e.id} user={user} />
+                  )
+
+                })
               }
             </>
           )

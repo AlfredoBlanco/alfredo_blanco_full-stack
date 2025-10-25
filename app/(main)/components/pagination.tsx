@@ -4,12 +4,13 @@ import Image from "next/image";
 interface Props {
     page: number;
     totalResults: number;
+    itemsPerPage?: number;
     onChange: any;
 }
 
-export default function Pagination({ page, totalResults, onChange }: Props) {
+export default function Pagination({ page, totalResults, itemsPerPage = 4, onChange }: Props) {
 
-    const totalPages = Math.ceil(totalResults / 4);
+    const totalPages = Math.ceil(totalResults / itemsPerPage);
 
     const handleSubstract = () => {
         if (page !== 1) {
@@ -26,7 +27,7 @@ export default function Pagination({ page, totalResults, onChange }: Props) {
     if (totalPages < 1 || !totalResults) return <></>;
 
     return (
-        <div className="flex items-center gap-4">
+        <div className="self-center sm:self-start flex items-center gap-4 my-5">
             <button onClick={handleSubstract} className="cursor-pointer">
                 <Image src={'/icons/back-arrow.svg'} width={8} height={8} alt="prev page" />
             </button>
