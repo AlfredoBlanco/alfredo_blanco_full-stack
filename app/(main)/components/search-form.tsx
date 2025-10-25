@@ -11,7 +11,6 @@ export default function SearchForm({ handleSearch }: Props) {
     const [query, setQuery] = useState<string>('');
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value)
         setQuery(e.target.value)
     }
 
@@ -22,14 +21,14 @@ export default function SearchForm({ handleSearch }: Props) {
     }
 
     return (
-        <form onSubmit={handleSubmit} className='w-full bg-white p-3 flex items-center gap-4 rounded-3xl'>
+        <form onSubmit={handleSubmit} className='w-full max-w-[665px] bg-white p-3 self-center flex items-center gap-4 rounded-3xl'>
             <input
                 name='query'
                 value={query}
                 onChange={handleChange}
                 className='w-full text-black bg-transparent border-none borderless-input'
             />
-            <button type='submit' className='p-2 px-4 bg-main-green text-black font-semibold rounded-full'>
+            <button type='submit' className='p-3 px-8 bg-main-green text-black font-semibold rounded-full'>
                 Buscar
             </button>
         </form>

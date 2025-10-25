@@ -33,10 +33,6 @@ export default function SearchPage() {
         setPage(targetPage);
     }
 
-    useEffect(() => {
-        console.log(data)
-    })
-
 
     return (
         <div className="flex flex-col gap-5">

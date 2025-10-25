@@ -21,6 +21,6 @@ export const generatePages = (page: number, totalPages: number) => {
     if(endPage < totalPages) {
         pageOptions.push('...');
     }
-console.log(totalPages, page, pageOptions)
+
     return pageOptions;
 }
