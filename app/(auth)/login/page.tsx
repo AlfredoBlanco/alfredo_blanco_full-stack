@@ -1,7 +1,9 @@
 import Image from "next/image";
 import LoginButton from "./components/login-button";
 
-export default function Page({ searchParams }: { searchParams: { code?: string, error?: string } }) {
+export default async function Page({ searchParams }: { searchParams: { code?: string, error?: string } }) {
+    const { code, error } = await searchParams;
+
     return (
         <div className="w-full h-full flex flex-col items-center justify-between sm:px-6">
             <Image src={'/icons/complete-logo.svg'} width={133} height={24} alt='Logo' className="self-start" />
@@ -14,7 +16,7 @@ export default function Page({ searchParams }: { searchParams: { code?: string, 
                     <h4 className="font-normal">
                         Accede a tu cuenta para guardar tus<br />albumes favoritos.
                     </h4>
-                    <LoginButton code={searchParams.code} error={searchParams.error} />
+                    <LoginButton code={code} error={error} />
                 </div>
             </div>
         </div>

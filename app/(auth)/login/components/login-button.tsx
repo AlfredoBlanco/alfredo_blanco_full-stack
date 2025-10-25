@@ -1,13 +1,14 @@
 'use client'
 import Link from "next/link";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { generateRandomString } from "@/app/utils/generate-random";
 import { useEffect } from "react";
 import axios from "axios";
 import { useAuthenticateMutation } from "@/lib/services/auth-service";
 import { useAppDispatch } from "@/lib/hooks";
 import { setUserData } from "@/lib/features/user.slice";
+import { NEXT_PUBLIC_CLIENT_ID, NEXT_PUBLIC_REDIRECT_URI } from "@/app/config/global-vars";
 
 interface Props {
     code?: string;
@@ -15,7 +16,7 @@ interface Props {
 }
 
 export default function LoginButton({ code, error }: Props) {
-    const params = `response_type=code&client_id=${process.env.NEXT_PUBLIC_CLIENT_ID}&scope=user-read-private user-read-email&redirect_uri=${encodeURI('https://a7344b39bb31.ngrok-free.app/login')}`;
+    const params = `response_type=code&client_id=${NEXT_PUBLIC_CLIENT_ID}&scope=user-read-private user-read-email&redirect_uri=${encodeURI(NEXT_PUBLIC_REDIRECT_URI)}`;
     const dispatch = useAppDispatch();
 
     const [
@@ -43,6 +44,7 @@ export default function LoginButton({ code, error }: Props) {
                 expires_in: Date.now() + (data.expires_in * 1000)
             }));
             localStorage.setItem('user', JSON.stringify(data));
+            redirect('/');
         }
         if (isError) {
             console.log('Hubo un error')
