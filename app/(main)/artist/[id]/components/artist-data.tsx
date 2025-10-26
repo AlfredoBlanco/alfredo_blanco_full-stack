@@ -1,5 +1,6 @@
 'use client'
 
+import { useHandleError } from "@/app/hooks/use-handle-errors";
 import { selectUser } from "@/lib/features/user.slice";
 import { useAppSelector } from "@/lib/hooks";
 import { useGetArtistDataQuery } from "@/lib/services/artist-service";
@@ -13,14 +14,20 @@ interface Props {
 
 export default function ArtistData({ artistId }: Props) {
     const { data: user } = useAppSelector(selectUser);
-    const router = useRouter();
+    const handleError = useHandleError();
 
-    const { data, isSuccess, isLoading, isError, error } = useGetArtistDataQuery({
+    const { data, isSuccess, isError, error } = useGetArtistDataQuery({
         token: user?.access_token,
         artistId,
     }, {
         skip: !user,
     });
+
+    useEffect(() => {
+        if (isError) {
+            handleError(error);
+        }
+    }, [isError])
 
     if (isSuccess && data) {
         return (

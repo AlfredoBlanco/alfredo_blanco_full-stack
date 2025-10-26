@@ -1,3 +1,4 @@
+import { useHandleError } from "@/app/hooks/use-handle-errors";
 import { User } from "@/app/interfaces/user";
 import { useCheckAlbumSavedQuery, useDeleteAlbumMutation, useSaveAlbumMutation } from "@/lib/services/album-service";
 import { useEffect, useState } from "react";
@@ -37,6 +38,7 @@ export default function SaveAlbumButton({ user, albumId }: Props) {
             reset: resetDelete,
         }
     ] = useDeleteAlbumMutation();
+    const handleError = useHandleError();
 
     useEffect(() => {
         if (isSuccess) {
@@ -50,12 +52,24 @@ export default function SaveAlbumButton({ user, albumId }: Props) {
             resetSave();
             refetch();
         }
-        if(isDeleteSuccess) {
+        if (isDeleteSuccess) {
             setSaved(false);
             resetDelete();
             refetch();
         }
     }, [isSaveSuccess, isDeleteSuccess])
+
+    useEffect(() => {
+        if (isSaveError) {
+            handleError(saveError);
+        }
+        if (isDeleteError) {
+            handleError(saveError);
+        }
+        if (isError) {
+            handleError(saveError);
+        }
+    }, [isSaveError, isDeleteError])
 
     const handleAction = async () => {
         if (saved) {

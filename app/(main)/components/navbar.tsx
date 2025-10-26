@@ -1,4 +1,5 @@
 'use client'
+import { logoutUser } from "@/app/utils/logout-user";
 import { clearUserLogOut } from "@/lib/features/user.slice";
 import { useAppDispatch } from "@/lib/hooks";
 import Image from "next/image";
@@ -23,8 +24,7 @@ export default function Navbar() {
     ];
 
     const handleLogout = async () => {
-        dispatch(clearUserLogOut());
-        router.push('/login');
+        logoutUser({dispatch, router});
     };
 
     return (

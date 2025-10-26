@@ -4,6 +4,7 @@ import Link from "next/link";
 import Album from "./album";
 import Skeleton from "@/app/(main)/components/skeleton";
 import { User } from "@/app/interfaces/user";
+import NoResults from "@/app/(main)/components/no-results";
 
 interface Props {
   user: User | null;
@@ -21,12 +22,14 @@ export default function AlbumsCollection({ data, loading, user }: Props) {
           ) : (
             <>
               {
-                data?.map((e: AlbumType) => {
-                  return (
-                    <Album album={e} key={e.id} user={user} />
-                  )
+                !data || !data.length
+                  ? <NoResults message="No se encontraron resultados" />
+                  : data?.map((e: AlbumType) => {
+                    return (
+                      <Album album={e} key={e.id} user={user} />
+                    )
 
-                })
+                  })
               }
             </>
           )

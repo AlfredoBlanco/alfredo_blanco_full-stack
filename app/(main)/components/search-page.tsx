@@ -7,12 +7,15 @@ import { useEffect, useState } from "react"
 import ArtistsDisplay from "./artists-display"
 import Pagination from "./pagination"
 import { useSearchArtistsQuery } from "@/lib/services/search-service"
+import { useHandleError } from "@/app/hooks/use-handle-errors"
+import NoResults from "./no-results"
 
 
 export default function SearchPage() {
     const [page, setPage] = useState<number>(1);
     const [query, setQuery] = useState<string>('');
     const { data: user } = useAppSelector(selectUser);
+    const handleError = useHandleError();
 
     const { data, isLoading, isError, error, isFetching } = useSearchArtistsQuery({
         token: user?.access_token,
@@ -32,6 +35,11 @@ export default function SearchPage() {
         setPage(targetPage);
     }
 
+    useEffect(() => {
+        if(isError) {
+            handleError(error);
+        }
+    }, [isError])
 
     return (
         <div className="flex flex-col gap-5">
@@ -40,11 +48,13 @@ export default function SearchPage() {
             <p>
                 Mostrando 4 resultados de {data?.artists.total}
             </p>
-            
-            <ArtistsDisplay data={data?.artists.items} loading={isLoading || isFetching} />
-            
-            <Pagination page={page} totalResults={data?.artists.total} onChange={handleChange} />
-            
+            {
+                isError
+                ? <NoResults />
+                : <ArtistsDisplay data={data?.artists.items} loading={isLoading || isFetching} />
+            }
+            <Pagination page={page} totalResults={data?.artists.total?? 0} onChange={handleChange} />
+
         </div>
     )
 }
