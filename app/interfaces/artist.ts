@@ -10,3 +10,15 @@ export interface Artist {
     type: string;
     uri: string;
 }
+
+export interface SearchArtistsResponse {
+    artists: {
+        href: string;
+        items: Artist[];
+        limit: number;
+        next: string;
+        offset: number;
+        previus: number;
+        total: number;
+    }
+}

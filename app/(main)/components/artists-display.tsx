@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Skeleton from "./skeleton";
+import NoResults from "./no-results";
 
 interface Props {
   data: any;
@@ -17,7 +18,9 @@ export default function ArtistsDisplay({ data, loading }: Props) {
           ) : (
             <>
               {
-                data?.map((e: any) => (
+                !data || !data.length
+                ? <NoResults message="No se encontraron resultados para esta búsqueda" />
+                : data?.map((e: any) => (
                   <Link href={`/artist/${e.id}`} className="w-fit max-w-[334px] p-4 flex flex-col gap-3 my-2 hover:bg-main-green hover:text-black rounded-2xl" key={e.id} >
                     <picture>
                       <source
